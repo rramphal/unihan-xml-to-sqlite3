@@ -18,13 +18,5 @@ unihan_file.each do |line|
 
   if not cp.nil?
     character = cp.to_i(16).chr('UTF-8')
-    characters[character] = Character.new( kSimplifiedVariant,
-                                           kMandarin,
-                                           kDefinition,
-                                           kHanyuPinyin,
-                                           kCantonese,
-                                           kRSUnicode,
-                                           kCangjie,
-                                           cp )
   end
 end
