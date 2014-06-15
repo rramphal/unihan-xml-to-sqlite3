@@ -1,10 +1,10 @@
 require 'sqlite3'
 
-@db = SQLite3::Database.new( "unihan.sqlite" )
+db = SQLite3::Database.new( "unihan.sqlite" )
 
-@db.execute( "DROP TABLE IF EXISTS characters" )
+db.execute( "DROP TABLE IF EXISTS characters" )
 
-@db.execute( "CREATE TABLE characters
+db.execute( "CREATE TABLE characters
                 ( character VARCHAR,
                   simplified VARCHAR,
                   kDefinition TEXT,
@@ -56,11 +56,11 @@ unihan_file.each do |line|
     # remove any duplicates (will be many since we added kMandarin to kHanyuPinyin)
     kHanyuPinyin = kHanyuPinyin.join(",")
   end
-  
+
   # INSERT INTO DATABASE
   if not cp.nil?
     character = cp.to_i(16).chr('UTF-8') # generates character from codepoint
-     @db.execute( "INSERT INTO characters (character, simplified, kDefinition, readings, jyutping, radical, cangjie, code)
+     db.execute( "INSERT INTO characters (character, simplified, kDefinition, readings, jyutping, radical, cangjie, code)
                     VALUES ( ? , ? , ? , ? , ? , ? , ? , ? )",
                       character, kSimplifiedVariant, kDefinition, kHanyuPinyin, kCantonese, kRSUnicode, kCangjie, cp )
     print character
